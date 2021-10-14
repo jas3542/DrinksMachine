@@ -1,0 +1,38 @@
+<div *ngIf="selectedDrink === null">
+    <h2>Select a drink:</h2>
+
+    <div class="container drinks-list" >
+        <div class="list-group row drinks">
+            <a class="list-group-item list-group-item-action text-center col-md-auto"
+            *ngFor="let drink of drinks" (click)="drinkSelected(drink)">{{drink}}</a>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="selectedDrink !== null">
+    <h2>{{this.selectedDrinkName}}</h2>
+    <div *ngIf="isTea">
+        <div class="container tea-container" >
+            <div class="list-group row tea">
+                <a class="list-group-item list-group-item-light text-center col-md-auto"
+            *ngFor="let msg of messages" >{{msg}}</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isCoffee">
+        <div class="container tea-container" >
+            <div class="list-group row tea">
+                <a class="list-group-item list-group-item-light text-center col-md-auto"
+            *ngFor="let msg of messages" >{{msg}}</a>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="isChocolate">
+        <div class="container tea-container" >
+            <div class="list-group row tea">
+                <a class="list-group-item list-group-item-light text-center col-md-auto"
+            *ngFor="let msg of messages" >{{msg}}</a>
+            </div>
+        </div>
+    </div>
+</div>

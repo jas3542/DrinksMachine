@@ -1,0 +1,13 @@
+h2 {
+    text-align: center;
+    margin-top: 2em;
+}
+
+.drinks-list, .tea-container {
+    margin-top: 2em;
+}
+.drinks a {
+    cursor: pointer;
+}
+
+
