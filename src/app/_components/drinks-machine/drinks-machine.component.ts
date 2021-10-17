@@ -26,7 +26,6 @@ export class DrinksMachineComponent implements OnInit {
   coffeeProcess: string[];
   chocolateProcess: string[];
 
-
   constructor(private dataService: DataService, private router: Router) { 
     this.drinks = [];
     this.selectedDrink = null;
@@ -39,25 +38,58 @@ export class DrinksMachineComponent implements OnInit {
     this.teaProcess = [];
     this.coffeeProcess = [];
     this.chocolateProcess = [];
-    this.drinks = this.getListOfDrinks();
+
+    this.getListOfDrinks();
   }
 
   ngOnInit(): void {
     
   }
 
-  getListOfDrinks(): string[] {
-    return this.dataService.getDrinksList();
+  getListOfDrinks(): void{
+    this.dataService.getDrinks().subscribe(res => {
+      this.drinks = res;
+    });
   }
 
   drinkSelected(drinkName: string) {
-    console.log(drinkName);
     this.selectedDrinkName = drinkName;
-    this.dataService.getDrink(drinkName).subscribe(val => {
-      this.selectedDrink = val;
+    this.selectedDrink = this.getDrinkType(drinkName);
+
+    this.CheckDrinkType(this.selectedDrink); // prints the recipe on the screen
+
+    if (this.isTea) {
+      this.dataService.getTeaRecipe(this.selectedDrink).subscribe(val => {
+       this.teaProcess = val;
+      });
+    }
+    if (this.isCoffee) {
+      this.dataService.getCoffeeRecipe(this.selectedDrink).subscribe(val => {
+        this.coffeeProcess = val;
+       });
+    }
+
+    if (this.isChocolate) {
+      this.dataService.getChocolateRecipe(this.selectedDrink).subscribe(val => {
+        this.chocolateProcess = val;
+       });
+    }
+    
+  }
+  
+  getDrinkType(name: string): Drink {
+    var drink = null;
+    if (name==this.drinks[0]) { // Lemon tea
+      drink = new Tea();
+      drink.lemonTea = true;
       
-      this.CheckDrinkType(this.selectedDrink);
-    });
+    }else if (name==this.drinks[1]) { // coffee
+      drink = new Coffee();
+    }else if (name==this.drinks[2]) { // chocolate
+      drink = new Chocolate();
+    }
+    return drink;
+
   }
 
   CheckDrinkType(drink: any): void {
@@ -78,42 +110,30 @@ export class DrinksMachineComponent implements OnInit {
   printTeaProcess(): void {
     //this.messages = [];
     var i = 0;
-    this.teaProcess.push(this.selectedDrink.boilWater());
-    this.teaProcess.push(this.selectedDrink.steepWater());
-    this.teaProcess.push(this.selectedDrink.pourDrinkInCup("tea"));
-    this.teaProcess.push(this.selectedDrink.addLemon());
     
     setInterval(() => {
       if (this.messages.length == this.teaProcess.length)
         return; // finished
       this.messages.push(this.teaProcess[i])
       i++
-    },1000);
+    },500);
   }
 
   printCoffeeProcess(): void {
     //this.messages = [];
     var i = 0;
-    this.coffeeProcess.push(this.selectedDrink.boilWater());
-    this.coffeeProcess.push(this.selectedDrink.brewCoffeeGrounds());
-    this.coffeeProcess.push(this.selectedDrink.pourDrinkInCup("coffee"));
-    this.coffeeProcess.push(this.selectedDrink.addSugar());
-    this.coffeeProcess.push(this.selectedDrink.addMilk());
     
     setInterval(() => {
       if (this.messages.length == this.coffeeProcess.length)
         return; // finished
       this.messages.push(this.coffeeProcess[i])
       i++
-    },1000);
+    },500);
   }
 
   printChocolateProcess(): void {
     //this.messages = [];
     var i = 0;
-    this.chocolateProcess.push(this.selectedDrink.boilWater());
-    this.chocolateProcess.push(this.selectedDrink.addChocolatePowder());
-    this.chocolateProcess.push(this.selectedDrink.pourDrinkInCup("chocolate"));
     
     setInterval(() => {
       if (this.messages.length == this.chocolateProcess.length)

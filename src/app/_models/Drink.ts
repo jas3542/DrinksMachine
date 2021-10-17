@@ -1,10 +1,5 @@
 export class Drink {
+    Recipe : string[];
     constructor() {}
 
-    boilWater(): string {
-        return "Water is boiling";
-    }
-    pourDrinkInCup(drink: string): string {
-        return "Pouring "+ drink;
-    }
 }
