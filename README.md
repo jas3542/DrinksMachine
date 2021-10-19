@@ -8,7 +8,6 @@
 
 #TODO:
 * Back button;
-* A proper backend (api).
 * Components for different type of drinks (Maybe).
 * When Coffee selected ask the customer for Milk & sugar ( they should be optional, not everyone drinks coffee with milk or sugar).
 * Bootstrap to improve fanciness 
