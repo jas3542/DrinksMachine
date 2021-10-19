@@ -29,7 +29,7 @@ export class DataService {
     );
   }
 
-  public getTeaRecipe(drink: Tea): Observable<any> {
+  public getTea(drink: Tea): Observable<any> {
     return this.httpClient.post<string[]>("https://localhost:44320/api/drinks/tea/recipe",JSON.stringify(drink),{headers: this.headers})
      .pipe(
       retry(3), // retry a failed request up to 3 times
@@ -37,7 +37,7 @@ export class DataService {
     );
   }
 
-  public getCoffeeRecipe(drink: Coffee): Observable<string[]> {
+  public getCoffee(drink: Coffee): Observable<string[]> {
 
     return this.httpClient.post<string[]>("https://localhost:44320/api/drinks/coffee/recipe",JSON.stringify(drink),{headers: this.headers})
      .pipe(
@@ -46,7 +46,7 @@ export class DataService {
     );
   }
 
-  public getChocolateRecipe(drink: Chocolate): Observable<string[]> {
+  public getChocolate(drink: Chocolate): Observable<string[]> {
 
     return this.httpClient.post<string[]>("https://localhost:44320/api/drinks/chocolate/recipe",JSON.stringify(drink),{headers: this.headers})
      .pipe(

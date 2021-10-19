@@ -59,18 +59,18 @@ export class DrinksMachineComponent implements OnInit {
     this.CheckDrinkType(this.selectedDrink); // prints the recipe on the screen
 
     if (this.isTea) {
-      this.dataService.getTeaRecipe(this.selectedDrink).subscribe(val => {
+      this.dataService.getTea(this.selectedDrink).subscribe(val => {
        this.teaProcess = val;
       });
     }
     if (this.isCoffee) {
-      this.dataService.getCoffeeRecipe(this.selectedDrink).subscribe(val => {
+      this.dataService.getCoffee(this.selectedDrink).subscribe(val => {
         this.coffeeProcess = val;
        });
     }
 
     if (this.isChocolate) {
-      this.dataService.getChocolateRecipe(this.selectedDrink).subscribe(val => {
+      this.dataService.getChocolate(this.selectedDrink).subscribe(val => {
         this.chocolateProcess = val;
        });
     }
@@ -85,6 +85,8 @@ export class DrinksMachineComponent implements OnInit {
       
     }else if (name==this.drinks[1]) { // coffee
       drink = new Coffee();
+      drink.Milk = true;
+      drink.Sugar = true;
     }else if (name==this.drinks[2]) { // chocolate
       drink = new Chocolate();
     }
